@@ -35,25 +35,6 @@ CREATE TABLE Member (
     PRIMARY KEY(MemNum)
 );
 
--- How do we create this and member simultaneously?
--- CREATE TABLE Account (
---     --Simple attributes
---     AccountNum          INTEGER     NOT NULL,
---     CCNum               VARCHAR(19) NOT NULL,
---     CCExpDate           DATE NOT NULL,
---     --Balance is calculated
-
---     --Foreign keys
---     MemNum    INTEGER NOT NULL,
---     FOREIGN KEY(MemNum) REFERENCES Member,
-
---     PRIMARY KEY(AccountNum)
--- );
-
--- ALTER TABLE member
--- ADD CONSTRAINT Account_fk FOREIGN KEY(AccountNum) REFERENCES Account;
-
-
 CREATE TABLE Payment (
     --Simple attributes
     PaymentNum  INTEGER     NOT NULL,
@@ -150,9 +131,3 @@ CREATE TABLE Charge (
 
     PRIMARY KEY(ChargeNum)
 );
-
--- create view departments_total_salary(dept_name, total_salary) as
--- select dept_name, sum (salary)
--- from instructor
--- group by dept_name;
-
