@@ -1,0 +1,6 @@
+ feenum | feerate | feedescription 
+--------+---------+----------------
+      0 |   $7.50 | Hourly rate
+      1 |  $50.00 | Annual Fee
+(2 rows)
+

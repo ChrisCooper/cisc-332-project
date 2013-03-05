@@ -1,0 +1,10 @@
+ carnum |        vin         |    make     |   model    | year  | lastodometer | lastgas | locnum 
+--------+--------------------+-------------+------------+-------+--------------+---------+--------
+      0 | U92N3ID9IJ2EKJD9IJ | Mazda       | 6          |  2012 |      38317.4 |    11.2 |      0
+      1 | JD982JOIS98J239873 | Subaru      | Forester   | 20513 |        872.9 |      10 |      0
+      2 | 1M8GDM9AXKP0427982 | Honda       | Civic      |  2012 |      38317.4 |    11.2 |      1
+      3 | 8DJN2O28XJ9W8J3KND | Ford        | Focus      |  2011 |      96873.2 |      21 |      1
+      4 | ASIX3OI2MDKMO98392 | Lamborghini | Murcielago |  2013 |        92774 |    19.5 |      2
+      5 | OIWJD893429849J245 | Ferrari     | Enzo       |  2012 |      46352.1 |     4.6 |      2
+(6 rows)
+

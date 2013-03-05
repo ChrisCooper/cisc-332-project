@@ -1,0 +1,7 @@
+ memnum |      name      |                address                |  phonenum  |        email         |    licensenum     | registrationdate |        ccnum        | ccexpdate  
+--------+----------------+---------------------------------------+------------+----------------------+-------------------+------------------+---------------------+------------
+      0 | Bob Gumbo      | 123 Not Fake Street, Ottawa           | 6135553987 | bob@iloveshrimp.net  | R4365-58723-59482 | 1955-12-08       | 5837 3882 7362 4771 | 2014-08-01
+      1 | Morey Poopins  | 382 Candy Lane, Kingston              | 4169274029 | morry@notmychild.com | S3948-47266-53901 | 1927-08-21       | 4827 3856 2162 4873 | 2016-01-01
+      2 | Fanny Flanagan | 109 End of the Rainbow Drive, Toronto | 3432263095 |                      | P4827-58274-10395 | 1999-01-02       | 4987 2673 5652 7621 | 2013-12-01
+(3 rows)
+

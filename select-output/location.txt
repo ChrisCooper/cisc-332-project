@@ -1,0 +1,7 @@
+ locnum |             address             | numspaces 
+--------+---------------------------------+-----------
+      0 | 111 Bank Street, Ottawa         |        35
+      1 | 231 King Street West, Kingston  |        12
+      2 | 4550 Queen Street East, Toronto |        50
+(3 rows)
+
