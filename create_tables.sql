@@ -87,11 +87,11 @@ CREATE TABLE Car (
 CREATE TABLE Maintenance (
     --Simple attributes
     MaintNum    INTEGER     NOT NULL,
-    CheckupDate VARCHAR(20) NOT NULL,
+    CheckupDate DATE NOT NULL,
     Odometer    DOUBLE PRECISION NOT NULL,
 
     --Foreign keys
-    CarNum      VARCHAR(20) NOT NULL,
+    CarNum      INTEGER NOT NULL,
     FOREIGN KEY(CarNum) REFERENCES Car,
 
     PRIMARY KEY(MaintNum)
@@ -105,7 +105,7 @@ CREATE TABLE Reservation (
     Duration    INTEGER NOT NULL,
 
     --Foreign keys
-    CarNum      VARCHAR(20) NOT NULL,
+    CarNum      INTEGER NOT NULL,
     MemNum      INTEGER NOT NULL,
     LocNum      INTEGER NOT NULL,
     FOREIGN KEY(CarNum) REFERENCES Car,
@@ -118,11 +118,11 @@ CREATE TABLE Reservation (
 CREATE TABLE Charge (
     --Simple attributes
     ChargeNum   INTEGER     NOT NULL,
-    Paydate     DATE NOT NULL,
+    ChargeDate     DATE NOT NULL,
 
     --Foreign keys
     FeeNum      INTEGER NOT NULL,
-    ResNum      INTEGER NOT NULL,
+    ResNum      INTEGER,
     MemNum      INTEGER NOT NULL,
 
     FOREIGN KEY(FeeNum) REFERENCES Fee,
