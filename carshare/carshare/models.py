@@ -52,6 +52,29 @@ def reservations_for_car(carNum):
 
     return items
 
+def insert_reservation(post_dict):
+    d = post_dict
+    
+    car = car_by_id(d['carNum'])
+
+    cursor = connection.cursor()
+
+    # Data modifying operation - commit required
+    cursor.execute('''
+        insert into Reservation values
+        (DEFAULT, %s, %s, %s, %s, %s, %s);
+    ''',
+    [
+        d['date'],
+        d['time'],
+        d['duration'],
+        car.id,
+        d['memNum'],
+        car.locNum,
+    ])
+    transaction.commit_unless_managed()
+
+
 class Car(object):
 
     def __init__(self, car_tuple=None):
@@ -198,6 +221,6 @@ def location_by_id(id):
         '''
     , [id])
 
-    tuple = cursor.fetchone()
+    loc = Location(cursor.fetchone())
 
-    return Location(tuple)
+    return loc

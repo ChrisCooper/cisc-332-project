@@ -12,6 +12,9 @@ def index(request):
 
 def reservations(request):
 
+    if request.method == 'POST':
+        insert_reservation(request.POST)
+
     filter_date = datetime.date.today()
     res_tuples = []
 
@@ -28,7 +31,16 @@ def reservations(request):
         res.member = member_by_id(res.memNum)
         res.location = location_by_id(res.locNum)
 
-    return render(request, 'reservations_today.html', {'reservations': reservations})
+    cars = all_cars()
+
+    for car in cars:
+        car.location = location_by_id(car.locNum)
+
+    members = all_members()
+
+    return render(request, 'reservations_today.html', {'reservations': reservations,
+                                                        'cars': cars,
+                                                        'members': members})
 
 def usage_history(request, carNum):
 

@@ -7,9 +7,12 @@
         <h1>Daily Reservations</h1>
         <p>Choose a date to see all reservations for that day.</p>
 
+        <a href="#resModal" role="button" class="btn btn-primary" data-toggle="modal">New Reservation</a>
+
+        <hr>
 
         <form method="get" action="" >
-            <p>Date: <input type="text" id="datepicker" name="date"/></p>
+            <p>Date: <input type="text" class="datepicker" name="date"/></p>
             <input type="submit" value="Filter by date" class="btn btn-primary" /> 
         </form>
 
@@ -57,5 +60,49 @@
         </div>
         
       </div>
+
+
+      <!-- Modal -->
+    <div id="resModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Create a new reservation</h3>
+        </div>
+        <form method="post" action="" >
+            <div class="modal-body">
+            
+                <label for="memNum">Member:</label>
+                <select name="memNum">
+                    <option value="" disabled="disabled" selected="selected">Please select a Member</option>
+                    {% for member in members %}
+                        <option value="{{ member.id }}">{{ member.name }} (ID: {{member.id}})</option>
+                    {% endfor %}
+                </select>
+
+                <label for="date">Pickup Date:</label>
+                <input type="text" class="datepicker" name="date"/></p>
+
+                <label for="time">Pickup Time:</label>
+                <input type="text" name="time" value="" id="time" placeholder="e.g. 13:30">
+
+
+                <label for="duration">Rental Duration (hours):</label>
+                <input type="text" name="duration" value="" id="duration" placeholder="e.g. 5">
+                
+                <label for="carNum">Rental Duration (hours):</label>
+                <select name="carNum">
+                    <option value="" disabled="disabled" selected="selected">Please select a Car</option>
+                    {% for car in cars %}
+                        <option value="{{ car.id }}">{{ car.make }} {{ car.model }} - ({{ car.location.address }})</option>
+                    {% endfor %}
+                </select>
+            
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <input type="submit" value="Create Reservation" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 
 {% endblock %}
