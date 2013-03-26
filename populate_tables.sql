@@ -21,7 +21,7 @@ insert into Car values
 
 insert into Fee values
 (DEFAULT, 7.50, 'Hourly rate'),
-(DEFAULT, 50.0, 'Annual Fee')
+(DEFAULT, 50.0, 'Annual fee')
 ;
 
 insert into Reservation values
@@ -70,4 +70,13 @@ insert into Charge values
 (DEFAULT, '2013-03-10', 1, null, 1),
 (DEFAULT, '2013-03-09', 1, null, 2)
 ;
+
+
+insert into Transaction values
+(DEFAULT,'2013-03-03', 'Annual fee', 50.0, 1),
+(DEFAULT,'2013-03-03', 'Annual fee', 50.0, 2),
+(DEFAULT,'2013-03-03', 'Annual fee', 50.0, 3),
+(DEFAULT,'2013-03-25', 'Honda Civic (ID 4) for 4 hours', 30.0, 1)
+;
+
 

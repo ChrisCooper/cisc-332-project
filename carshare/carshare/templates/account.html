@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+
+     <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit">
+        <h1>Account</h1>
+        <h2>For {{ member.name }} (ID {{ member.id }})</h2>
+
+        <p>You can view the transaction history for this user and make payments.</p>
+
+        <h3>{{ member.name }}'s balance is ${{ balance }}</h3>
+
+        <form method="post" action="" >
+            {% if balance > 0 %}
+                <input type="hidden" name="payBalance" id="payBalance" value="payBalance" />
+                <input type="submit" value="Pay Balance" class="btn btn-primary" /> 
+            {% else %}
+                <input type="submit" value="Balance already paid" class="btn disabled" /> 
+            {% endif %}
+        </form>
+
+        <form method="post" action="" >
+            {% if can_charge_annual_fee %}
+                <input type="hidden" name="annualFee" id="annualFee" value="annualFee" />
+                <input type="submit" value="Charge Annual Fee" class="btn btn-primary" /> 
+            {% else %}
+                <input type="submit" value="Annual already charged this year" class="btn disabled" /> 
+            {% endif %}
+        </form>
+
+     </div>
+
+     <!-- Example row of columns -->
+    <div class="row">
+        <div class="span12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                {% for trans in transactions %}
+                    <tr>
+                        <td>{{ trans.date }}</td>
+                        <td>{{ trans.description }}</td>
+                        <td>{{ trans.amount }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+{% endblock %}

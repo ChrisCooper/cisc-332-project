@@ -13,6 +13,7 @@ drop table Location CASCADE;
 drop table Reservation CASCADE;
 drop table Car CASCADE;
 drop table Maintenance CASCADE;
+drop table Transaction CASCADE;
 
 
 -- Create new tables
@@ -129,4 +130,19 @@ CREATE TABLE Charge (
     FOREIGN KEY(MemNum) REFERENCES Member,
 
     PRIMARY KEY(ChargeNum)
+);
+
+CREATE TABLE Transaction (
+    --Simple attributes
+    TransNum        SERIAL     NOT NULL,
+    TransDate       DATE NOT NULL,
+    Description     VARCHAR(100) NOT NULL,
+    Amount          MONEY NOT NULL,
+
+    --Foreign keys
+    MemNum          INTEGER NOT NULL,
+
+    FOREIGN KEY(MemNum) REFERENCES Member,
+
+    PRIMARY KEY(TransNum)
 );

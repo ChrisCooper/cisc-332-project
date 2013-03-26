@@ -21,10 +21,7 @@ insert into Charge values
 
 -- Show transaction history
 select *
-    from charge natural join member where memNum = M;
-
-select *
-    from payment natural join member where memNum = M;
+    from Transaction natural join member where memNum = M;
 
 -- M = member number
 

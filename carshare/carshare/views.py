@@ -5,7 +5,7 @@ import datetime
 from dateutil import parser
 
 from carshare.models import *
-
+ 
 def index(request):
     return render(request, 'index.html')
 
@@ -86,3 +86,27 @@ def members(request):
     members = all_members()
 
     return render(request, 'members.html', {'members': members})
+
+
+def account(request, memNum):
+
+    if request.method == 'POST':
+        if 'annualFee' in request.POST:
+            charge_annual_fee(memNum)
+        elif 'payBalance' in request.POST:
+            pay_balance(memNum)
+
+    member = member_by_id(memNum)
+
+    transactions = transcations_for_member(memNum)
+
+    can_charge = can_charge_annual_fee(memNum)
+
+    balance = balance_for_member(memNum)
+
+    #import pdb; pdb.set_trace()
+
+    return render(request, 'account.html', {'member': member,
+                                            'transactions': transactions,
+                                            'balance': balance,
+                                            'can_charge_annual_fee': can_charge})

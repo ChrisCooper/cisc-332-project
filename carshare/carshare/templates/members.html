@@ -25,6 +25,7 @@
                     <th>Registration Anniversary</th>
                     <th>Credit Card Number</th>
                     <th>Credit Card Expiry</th>
+                    <th>Account Inquiries</th>
                 </tr>
                 {% for member in members %}
                 <tr>
@@ -37,6 +38,12 @@
                     <td>{{ member.anniversary }}</td>
                     <td>{{ member.ccnum }}</td>
                     <td>{{ member.ccexp }}</td>
+                    <td>
+
+                    <a href="{% url 'account' member.id %}"class="btn btn-warning">
+                        View Account
+                    </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>

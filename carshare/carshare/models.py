@@ -54,7 +54,7 @@ def reservations_for_car(carNum):
 
 def insert_reservation(post_dict):
     d = post_dict
-    
+
     car = car_by_id(d['carNum'])
 
     cursor = connection.cursor()
@@ -72,8 +72,43 @@ def insert_reservation(post_dict):
         d['memNum'],
         car.locNum,
     ])
+
+    import pdb; pdb.set_trace()
+
+    description = "{0} {1} (ID {2}) for {3} hours".format(car.make, car.model, car.id, d['duration'])
+
+    cost = hourly_rate() * float(d['duration'])
+
+    cursor.execute('''
+        insert into Transaction values
+        (DEFAULT, %s, %s, %s, %s);
+    ''',
+    [
+        datetime.date.today(),
+        description,
+        cost,
+        d['memNum'],
+    ])
+
     transaction.commit_unless_managed()
 
+def hourly_rate():
+    cursor = connection.cursor()
+    cursor.execute('''
+        select FeeRate::decimal from Fee where FeeDescription = 'Hourly rate'
+        '''
+    )
+
+    return float(cursor.fetchone()[0])
+
+def annual_fee():
+    cursor = connection.cursor()
+    cursor.execute('''
+        select FeeRate::decimal from Fee where FeeDescription = 'Annual fee'
+        '''
+    )
+
+    return float(cursor.fetchone()[0])
 
 class Car(object):
 
@@ -197,12 +232,35 @@ def insert_member(member_dict):
     ])
     transaction.commit_unless_managed()
 
+def can_charge_annual_fee(memNum):
+    return True # For now
+
+def charge_annual_fee(memNum):
+
+    if not can_charge_annual_fee(memNum):
+        return
+
+    cursor = connection.cursor()
+    cursor.execute('''
+        insert into Transaction values
+        (DEFAULT, %s, %s, %s, %s);
+    ''',
+    [
+        datetime.date.today(),
+        "Annual fee",
+        annual_fee(),
+        memNum,
+    ])
+
+    transaction.commit_unless_managed()
+
+
 class Location(object):
 
-    def __init__(self, tuple):
-        self.id = tuple[0]
-        self.address = tuple[1]
-        self.numSpaces = tuple[2]
+    def __init__(self, init_tuple):
+        self.id = init_tuple[0]
+        self.address = init_tuple[1]
+        self.numSpaces = init_tuple[2]
 
 def all_locations():
     cursor = connection.cursor()
@@ -224,3 +282,55 @@ def location_by_id(id):
     loc = Location(cursor.fetchone())
 
     return loc
+
+class Transaction(object):
+
+    def __init__(self, init_tuple):
+        if init_tuple:
+            self.id = init_tuple[0]
+            self.date = init_tuple[1]
+            self.description = init_tuple[2]
+            self.amount = init_tuple[3]
+            self.memNum = init_tuple[4]
+
+def transcations_for_member(memNum):
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from transaction where memNum = %s order by transDate desc
+        '''
+    , [memNum])
+
+    items = [Transaction(t) for t in cursor.fetchall()]
+
+    return items
+
+def balance_for_member(memNum):
+    cursor = connection.cursor()
+    cursor.execute('''
+        select sum(amount)::decimal from transaction where memNum = %s
+        '''
+    , [memNum])
+
+    return cursor.fetchone()[0]
+
+def pay_balance(memNum):
+
+    balance = balance_for_member(memNum)
+
+    if balance <= 0:
+        return
+
+    cursor = connection.cursor()
+
+    cursor.execute('''
+        insert into Transaction values
+        (DEFAULT, %s, 'Balance payment', -(select sum(amount)::decimal from transaction where memNum = %s), %s);
+    ''',
+    [
+        datetime.date.today(),
+        memNum,
+        memNum,
+    ])
+
+    transaction.commit_unless_managed()
+

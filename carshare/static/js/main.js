@@ -3,8 +3,6 @@ $(function() {
 });
 
 
-
-
 $(function () {
 
     options = {
