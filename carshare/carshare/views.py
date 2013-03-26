@@ -22,4 +22,9 @@ def reservations(request):
 
     reservations = [Reservation(t) for t in res_tuples]
 
+    for res in reservations:
+        res.car = car_by_id(res.carNum)
+        res.member = member_by_id(res.memNum)
+        res.location = location_by_id(res.locNum)
+
     return render(request, 'reservations_today.html', {'reservations': reservations})
