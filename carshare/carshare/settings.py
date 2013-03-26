@@ -74,6 +74,8 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     ('js', '/Users/chriscooper/programming/cisc-332-project/carshare/static/js'),
     ('css', '/Users/chriscooper/programming/cisc-332-project/carshare/static/css'),
+    ('img', '/Users/chriscooper/programming/cisc-332-project/carshare/static/img'),
+    ('images', '/Users/chriscooper/programming/cisc-332-project/carshare/static/images'),
 )
 
 # List of finder classes that know how to find static files in

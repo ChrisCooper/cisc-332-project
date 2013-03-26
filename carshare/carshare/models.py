@@ -1,9 +1,11 @@
 from django.db import connection, transaction
 
+import datetime
+from dateutil import parser
  
 class Reservation(object):
 
-    def __init__(self, res_tuple):
+    def __init__(self, res_tuple=None):
         self.id = res_tuple[0]
         self.pickupDate = res_tuple[1]
         self.pickupTime = res_tuple[2]
@@ -11,6 +13,16 @@ class Reservation(object):
         self.carNum = res_tuple[4]
         self.memNum = res_tuple[5]
         self.locNum = res_tuple[6]
+
+def all_reservations():
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from Reservation
+    ''')
+
+    items = [Reservation(t) for t in cursor.fetchall()]
+
+    return items
 
 def reservations_for_day(date):
     dateStr = date.isoformat()
@@ -84,14 +96,23 @@ class Member(object):
     def __init__(self, mem_tuple):
         self.id = mem_tuple[0]
         self.name = mem_tuple[1]
-        self.addres = mem_tuple[2]
+        self.address = mem_tuple[2]
         self.phonNum = mem_tuple[3]
         self.email = mem_tuple[4]
         self.license = mem_tuple[5]
-        self.aniversary = mem_tuple[6]
+        self.anniversary = mem_tuple[6]
         self.ccnum = mem_tuple[7]
         self.ccexp = mem_tuple[8]
 
+def all_members():
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from Member
+    ''')
+
+    items = [Member(t) for t in cursor.fetchall()]
+
+    return items
 
 def member_by_id(id):
     cursor = connection.cursor()
@@ -103,6 +124,27 @@ def member_by_id(id):
     mem_tuple = cursor.fetchone()
 
     return Member(mem_tuple)
+
+def insert_member(member_dict):
+    d = member_dict
+    cursor = connection.cursor()
+
+    # Data modifying operation - commit required
+    cursor.execute('''
+        insert into Member values
+        (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s);
+    ''',
+    [
+        d['name'],
+        d['address'],
+        d['phonNum'],
+        d['email'],
+        d['license'],
+        datetime.date.today(),
+        d['ccnum'],
+        parser.parse(d['ccexp'] + "-01"),
+    ])
+    transaction.commit_unless_managed()
 
 class Location(object):
 

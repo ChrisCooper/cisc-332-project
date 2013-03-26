@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+
+     <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit">
+        <h1>Members</h1>
+        <p>Click "Add Member" to add.</p>
+
+        <a href="#memberModal" role="button" class="btn btn-primary" data-toggle="modal">Add Member</a>
+
+     </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="span12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>License Number</th>
+                    <th>Registration Anniversary</th>
+                    <th>Credit Card Number</th>
+                    <th>Credit Card Expiry</th>
+                </tr>
+                {% for member in members %}
+                <tr>
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.address }}</td>
+                    <td>{{ member.phonNum }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>{{ member.license }}</td>
+                    <td>{{ member.anniversary }}</td>
+                    <td>{{ member.ccnum }}</td>
+                    <td>{{ member.ccexp }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+    </div>
+
+    <!-- Modal -->
+    <div id="memberModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add a Member</h3>
+        </div>
+        <form method="post" action="" >
+            <div class="modal-body">
+
+                <label for="name">Name:</label>
+                <input type="text" name="name" value="" id="name" placeholder="e.g. Joe Brown">
+
+                <label for="address">Address:</label>
+                <input type="text" name="address" value="" id="make" placeholder="e.g. 123 Fake Street">
+                
+                <label for="phonNum">Phone Number:</label>
+                <input type="text" name="phonNum" value="" id="model" placeholder="e.g. 123-456-7890">
+                
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="" id="year" placeholder="e.g. foo@bar.com">
+                
+                <label for="license">License Number:</label>
+                <input type="text" name="license" value="" id="lastOD" placeholder="e.g. JD93-DJ98-DMO2-7UJ3">
+
+                <label for="ccnum">Credit Card Number:</label>
+                <input type="text" name="ccnum" value="" id="lastGas" placeholder="e.g. 9387 9487 8493 7582">
+
+                <label for="ccexp">Credit Card Expiry:</label>
+                <input type="text" id="monthpicker" name="ccexp"/>
+            
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <input type="submit" value="Add Member" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

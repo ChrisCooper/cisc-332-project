@@ -13,15 +13,16 @@ def index(request):
 def reservations(request):
 
     filter_date = datetime.date.today()
+    res_tuples = []
 
-    if 'date' in request.GET:
+    if 'date' in request.GET and request.GET['date']:
         filter_date = request.GET['date']
         filter_date = parser.parse(filter_date)
-
-    res_tuples = reservations_for_day(filter_date)
-
-    reservations = [Reservation(t) for t in res_tuples]
-
+        res_tuples = reservations_for_day(filter_date)
+        reservations = [Reservation(t) for t in res_tuples]
+    else:
+        reservations = all_reservations()
+    
     for res in reservations:
         res.car = car_by_id(res.carNum)
         res.member = member_by_id(res.memNum)
@@ -59,3 +60,12 @@ def cars(request):
     locations = all_locations()
 
     return render(request, 'cars.html', {'cars': cars, 'locations': locations})
+
+def members(request):
+
+    if request.method == 'POST':
+        insert_member(request.POST)
+
+    members = all_members()
+
+    return render(request, 'members.html', {'members': members})
