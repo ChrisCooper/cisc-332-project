@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.db import models
-from django.db import connection, transaction
 
 import datetime
+from dateutil import parser
 
 from carshare.models import *
 
@@ -10,17 +10,15 @@ def index(request):
     return render(request, 'index.html')
 
 
-def today_reservations(request):
+def reservations(request):
 
-    dateStr = datetime.date.today().isoformat()
+    filter_date = datetime.date.today()
 
-    cursor = connection.cursor()
-    cursor.execute('''
-        select * from reservation where PickupDate = %s
-        '''
-    , [dateStr])
+    if 'date' in request.GET:
+        filter_date = request.GET['date']
+        filter_date = parser.parse(filter_date)
 
-    res_tuples = cursor.fetchall()
+    res_tuples = reservations_for_day(filter_date)
 
     reservations = [Reservation(t) for t in res_tuples]
 

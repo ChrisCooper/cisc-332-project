@@ -1,3 +1,5 @@
+from django.db import connection, transaction
+
  
 class Reservation(object):
 
@@ -6,3 +8,14 @@ class Reservation(object):
         self.pickupDate = res_tuple[1]
         self.pickupTime = res_tuple[2]
         self.duration = res_tuple[3]
+
+def reservations_for_day(date):
+    dateStr = date.isoformat()
+
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from reservation where PickupDate = %s
+        '''
+    , [dateStr])
+
+    return cursor.fetchall()

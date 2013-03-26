@@ -4,9 +4,15 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1>Today's reservations</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a href="http://twitter.github.com/bootstrap/examples/hero.html#" class="btn btn-primary btn-large">Learn more »</a></p>
+        <h1>Daily Reservations</h1>
+        <p>Choose a date to see all reservations for that day.</p>
+
+
+        <form method="get" action="" >
+            <p>Date: <input type="text" id="datepicker" name="date"/></p>
+            <input type="submit" value="Filter by date" class="btn btn-primary" /> 
+        </form>
+
       </div>
 
       <!-- Example row of columns -->
@@ -15,24 +21,15 @@
             <table class="table table-striped table-hover">
                 {% for res in reservations %}
                 <tr>
-                    <td>
-                        {{ res.pickupDate }}
-                    </td>
-                    <td>
-                        {{ res.pickupTime }}
-                    </td>
-                    <td>
-                        For {{ res.duration }} hours
-                    </td>
-                    {% comment %} <td>
-                        {{ res.car.model }}
-                    </td>
-                    <td>
-                        {{ res.member.name }}
-                    </td>
-                    <td>
-                        {{ res.location.address }}
-                    </td> {% endcomment %}
+                    <td>{{ res.pickupDate }}</td>
+                    <td>{{ res.pickupTime }}</td>
+                    <td>For {{ res.duration }} hours</td>
+
+                    {% comment %}
+                    <td>{{ res.car.model }}</td>
+                    <td>{{ res.member.name }}</td>
+                    <td>{{ res.location.address }}</td>
+                    {% endcomment %}
                 </tr>
                 {% endfor %}
             </table>
