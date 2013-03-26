@@ -6,7 +6,6 @@
 -- Drop existing tables
 
 drop table Member CASCADE;
-drop table Account CASCADE;
 drop table Charge CASCADE;
 drop table Payment CASCADE;
 drop table Fee CASCADE;
@@ -20,7 +19,7 @@ drop table Maintenance CASCADE;
 
 CREATE TABLE Member (
     --Simple attributes
-    MemNum              INTEGER     NOT NULL,
+    MemNum              SERIAL     NOT NULL,
     Name                VARCHAR(50) NOT NULL,
     Address             VARCHAR(100) NOT NULL,
     PhoneNum            VARCHAR(14)     NOT NULL,
@@ -37,7 +36,7 @@ CREATE TABLE Member (
 
 CREATE TABLE Payment (
     --Simple attributes
-    PaymentNum  INTEGER     NOT NULL,
+    PaymentNum  SERIAL     NOT NULL,
     Amount      MONEY NOT NULL,
     Paydate     DATE NOT NULL,
 
@@ -50,7 +49,7 @@ CREATE TABLE Payment (
 
 CREATE TABLE Fee (
     --Simple attributes
-    FeeNum          INTEGER     NOT NULL,
+    FeeNum          SERIAL     NOT NULL,
     FeeRate         MONEY NOT NULL,
     FeeDescription  VARCHAR(50),
 
@@ -59,7 +58,7 @@ CREATE TABLE Fee (
 
 CREATE TABLE Location (
     --Simple attributes
-    LocNum      INTEGER     NOT NULL,
+    LocNum      SERIAL     NOT NULL,
     Address     VARCHAR(100) NOT NULL,
     NumSpaces   INTEGER     NOT NULL,
     --Number of cars is calculated
@@ -69,7 +68,7 @@ CREATE TABLE Location (
 
 CREATE TABLE Car (
     --Simple attributes
-    CarNum          INTEGER NOT NULL,
+    CarNum          SERIAL NOT NULL,
     VIN             VARCHAR(30)     NOT NULL,
     Make            VARCHAR(20) NOT NULL,
     Model           VARCHAR(20) NOT NULL,
@@ -86,7 +85,7 @@ CREATE TABLE Car (
 
 CREATE TABLE Maintenance (
     --Simple attributes
-    MaintNum    INTEGER     NOT NULL,
+    MaintNum    SERIAL     NOT NULL,
     CheckupDate DATE NOT NULL,
     Odometer    DOUBLE PRECISION NOT NULL,
 
@@ -99,7 +98,7 @@ CREATE TABLE Maintenance (
 
 CREATE TABLE Reservation (
     --Simple attributes
-    ResNum      INTEGER     NOT NULL,
+    ResNum      SERIAL     NOT NULL,
     PickupDate  Date NOT NULL,
     PickupTime  Time NOT NULL,
     Duration    INTEGER NOT NULL,
@@ -117,7 +116,7 @@ CREATE TABLE Reservation (
 
 CREATE TABLE Charge (
     --Simple attributes
-    ChargeNum   INTEGER     NOT NULL,
+    ChargeNum   SERIAL     NOT NULL,
     ChargeDate     DATE NOT NULL,
 
     --Foreign keys
