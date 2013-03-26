@@ -56,4 +56,6 @@ def cars(request):
     for car in cars:
         car.location = location_by_id(car.locNum)
 
-    return render(request, 'cars.html', {'cars': cars})
+    locations = all_locations()
+
+    return render(request, 'cars.html', {'cars': cars, 'locations': locations})

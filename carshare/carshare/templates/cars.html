@@ -70,9 +70,12 @@
                 <input type="text" name="lastGas" value="" id="lastGas" placeholder="Last Gas Level (L)">
                 
                 <label for="locNum">Location ID:</label>
-                <input type="text" name="locNum" value="" id="locNum" placeholder="Location ID">
-
-                
+                <select name="locNum">
+                    <option value="" disabled="disabled" selected="selected">Please select a Location</option>
+                    {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.address }}</option>
+                    {% endfor %}
+                </select>
             
             </div>
             <div class="modal-footer">

@@ -111,6 +111,16 @@ class Location(object):
         self.address = tuple[1]
         self.numSpaces = tuple[2]
 
+def all_locations():
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from Location
+    ''')
+
+    locations = [Location(t) for t in cursor.fetchall()]
+
+    return locations
+
 def location_by_id(id):
     cursor = connection.cursor()
     cursor.execute('''
