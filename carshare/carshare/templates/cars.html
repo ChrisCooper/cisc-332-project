@@ -42,21 +42,25 @@
                     <th>Last Odometer Check (km)</th>
                     <th>Last Gas Level (L)</th>
                     <th>Location Address</th>
+                    <th>Reservations, if available</th>
                 </tr>
                 {% for car in cars %}
                 <tr>
                     <td>{{ car.id }}</td>
-                    <td>
-                        <a href="#resModal{{ car.id }}" role="button" data-toggle="modal">
-                            {{ car.VIN }}
-                        </a>
-                    </td>
+                    <td>{{ car.VIN }}</td>
                     <td>{{ car.make }}</td>
                     <td>{{ car.model }}</td>
                     <td>{{ car.year }}</td>
                     <td>{{ car.lastOD }}</td>
                     <td>{{ car.lastGas }}</td>
                     <td>{{ car.location.address }}</td>
+                    <td>
+                        {% if car.reservations %}
+                            <a href="#resModal{{ car.id }}" role="button" class="btn btn-warning" data-toggle="modal">
+                                Show reservations
+                            </a>
+                        {% endif%}
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -137,7 +141,7 @@
                     <td>{{ res.pickupTime }}</td>
                     <td>For {{ res.duration }} hours</td>
 
-                    <td>{{ res.location.address }}</td>
+                    <td>{{ car.location.address }}</td>
 
                 </tr>
                 {% endfor %}
