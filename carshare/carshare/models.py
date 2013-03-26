@@ -34,6 +34,23 @@ def reservations_for_day(date):
     , [dateStr])
 
     return cursor.fetchall()
+    
+def reservations_for_car(carNum):
+    
+
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from reservation where carNum = %s
+        '''
+    , [carNum])
+
+    items = [Reservation(t) for t in cursor.fetchall()]
+
+    for item in items:
+        item.member = member_by_id(item.memNum)
+        item.location = location_by_id(item.locNum)
+
+    return items
 
 class Car(object):
 
@@ -47,6 +64,17 @@ class Car(object):
             self.lastOD = car_tuple[5]
             self.lastGas = car_tuple[6]
             self.locNum = car_tuple[7]
+
+def cars_for_location(locNum):
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from car where locNum = %s
+    ''',
+    [locNum])
+
+    cars = [Car(t) for t in cursor.fetchall()]
+
+    return cars
 
 def all_cars():
     cursor = connection.cursor()

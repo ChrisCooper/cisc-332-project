@@ -52,14 +52,19 @@ def cars(request):
     if request.method == 'POST':
         insert_car(request.POST)
 
-    cars = all_cars()
+    if 'locNum' in request.GET and request.GET['locNum']:
+        cars = cars_for_location(request.GET['locNum'])
+    else:
+        cars = all_cars()
 
     for car in cars:
         car.location = location_by_id(car.locNum)
+        car.reservations = reservations_for_car(car.id)
 
     locations = all_locations()
 
-    return render(request, 'cars.html', {'cars': cars, 'locations': locations})
+    return render(request, 'cars.html', {'cars': cars,
+                                        'locations': locations,})
 
 def members(request):
 
