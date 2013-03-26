@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Today's reservations</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a href="http://twitter.github.com/bootstrap/examples/hero.html#" class="btn btn-primary btn-large">Learn more »</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span12">
+            <table class="table table-striped table-hover">
+                {% for res in reservations %}
+                <tr>
+                    <td>
+                        {{ res.pickupDate }}
+                    </td>
+                    <td>
+                        {{ res.pickupTime }}
+                    </td>
+                    <td>
+                        For {{ res.duration }} hours
+                    </td>
+                    {% comment %} <td>
+                        {{ res.car.model }}
+                    </td>
+                    <td>
+                        {{ res.member.name }}
+                    </td>
+                    <td>
+                        {{ res.location.address }}
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+      </div>
+
+{% endblock %}
