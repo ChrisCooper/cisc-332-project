@@ -28,3 +28,32 @@ def reservations(request):
         res.location = location_by_id(res.locNum)
 
     return render(request, 'reservations_today.html', {'reservations': reservations})
+
+def usage_history(request, carNum):
+
+    car = car_by_id(carNum)
+    
+    today = datetime.date.today()
+
+    res_tuples = reservations_for_day(filter_date)
+
+    reservations = [Reservation(t) for t in res_tuples]
+
+    for res in reservations:
+        res.car = car_by_id(res.carNum)
+        res.member = member_by_id(res.memNum)
+        res.location = location_by_id(res.locNum)
+
+    return render(request, 'reservations_today.html', {'reservations': reservations})
+
+def cars(request):
+
+    if request.method == 'POST':
+        insert_car(request.POST)
+
+    cars = all_cars()
+
+    for car in cars:
+        car.location = location_by_id(car.locNum)
+
+    return render(request, 'cars.html', {'cars': cars})

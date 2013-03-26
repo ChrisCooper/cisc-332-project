@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+
+     <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit">
+        <h1>Cars in Fleet</h1>
+        <p>Click "Add Car" to add to the fleet.</p>
+
+        <a href="#carModal" role="button" class="btn btn-primary" data-toggle="modal">Add Car</a>
+
+     </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="span12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Car ID</th>
+                    <th>Vehicle Identification Number</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Last Odometer Check (km)</th>
+                    <th>Last Gas Level (L)</th>
+                    <th>Location Address</th>
+                </tr>
+                {% for car in cars %}
+                <tr>
+                    <td>{{ car.id }}</td>
+                    <td>{{ car.VIN }}</td>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.year }}</td>
+                    <td>{{ car.lastOD }}</td>
+                    <td>{{ car.lastGas }}</td>
+                    <td>{{ car.location.address }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+    </div>
+
+    <!-- Modal -->
+    <div id="carModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add a car to the fleet</h3>
+        </div>
+        <form method="post" action="" >
+            <div class="modal-body">
+            
+                <label for="vin">Vehicle Identification Number:</label>
+                <input type="text" name="vin" value="" id="vin" placeholder="Vehicle Identification Number">
+
+                <label for="make">Make:</label>
+                <input type="text" name="make" value="" id="make" placeholder="Make">
+                
+                <label for="model">Model:</label>
+                <input type="text" name="model" value="" id="model" placeholder="Model">
+                
+                <label for="year">Year:</label>
+                <input type="text" name="year" value="" id="year" placeholder="Year">
+                
+                <label for="lastOD">Last Odometer Reading (km):</label>
+                <input type="text" name="lastOD" value="" id="lastOD" placeholder="Last Odometer Reading (km)">
+                
+                <label for="lastGas">Last Gas Level (L):</label>
+                <input type="text" name="lastGas" value="" id="lastGas" placeholder="Last Gas Level (L)">
+                
+                <label for="locNum">Location ID:</label>
+                <input type="text" name="locNum" value="" id="locNum" placeholder="Location ID">
+
+                
+            
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <input type="submit" value="Add Car" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

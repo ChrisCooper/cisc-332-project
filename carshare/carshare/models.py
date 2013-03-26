@@ -25,15 +25,26 @@ def reservations_for_day(date):
 
 class Car(object):
 
-    def __init__(self, car_tuple):
-        self.id = car_tuple[0]
-        self.VIN = car_tuple[1]
-        self.make = car_tuple[2]
-        self.model = car_tuple[3]
-        self.year = car_tuple[4]
-        self.lastOD = car_tuple[5]
-        self.lastGas = car_tuple[6]
-        self.locNum = car_tuple[7]
+    def __init__(self, car_tuple=None):
+        if car_tuple:
+            self.id = car_tuple[0]
+            self.VIN = car_tuple[1]
+            self.make = car_tuple[2]
+            self.model = car_tuple[3]
+            self.year = car_tuple[4]
+            self.lastOD = car_tuple[5]
+            self.lastGas = car_tuple[6]
+            self.locNum = car_tuple[7]
+
+def all_cars():
+    cursor = connection.cursor()
+    cursor.execute('''
+        select * from car
+    ''')
+
+    cars = [Car(t) for t in cursor.fetchall()]
+
+    return cars
 
 def car_by_id(id):
     cursor = connection.cursor()
@@ -45,6 +56,27 @@ def car_by_id(id):
     car_tuple = cursor.fetchone()
 
     return Car(car_tuple)
+
+
+def insert_car(car_dict):
+    d = car_dict
+    cursor = connection.cursor()
+
+    # Data modifying operation - commit required
+    cursor.execute('''
+        insert into Car values
+        (DEFAULT, %s, %s, %s, %s, %s, %s, %s);
+    ''',
+    [
+        d['vin'],
+        d['make'],
+        d['model'],
+        d['year'],
+        d['lastOD'],
+        d['lastGas'],
+        d['locNum'],
+    ])
+    transaction.commit_unless_managed()
 
 
 class Member(object):
