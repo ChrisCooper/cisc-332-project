@@ -18,6 +18,7 @@ def all_reservations():
     cursor = connection.cursor()
     cursor.execute('''
         select * from Reservation
+            order by PickupDate desc
     ''')
 
     items = [Reservation(t) for t in cursor.fetchall()]
@@ -29,11 +30,39 @@ def reservations_for_day(date):
 
     cursor = connection.cursor()
     cursor.execute('''
-        select * from reservation where PickupDate = %s
+        select *
+            from reservation where PickupDate = %s
         '''
     , [dateStr])
 
     return cursor.fetchall()
+
+def past_reservations(carNum):
+
+    cursor = connection.cursor()
+    cursor.execute('''
+        select ResNum, PickupDate, PickupTime, Duration, reservation.CarNum, MemNum, reservation.LocNum
+            from car inner join reservation
+                on car.carNum = reservation.carNum
+                where reservation.carNum = %s
+                    and PickupDate < %s
+                    or (   
+                        PickupDate = %s
+                        and (PickupTime + (duration * '1 hour'::INTERVAL)) < %s
+                    )
+            order by PickupDate desc
+        ''',
+        [
+            carNum,
+            datetime.date.today(),
+            datetime.date.today(),
+            datetime.datetime.time(datetime.datetime.now()),
+        ]
+    )
+
+    reservations = [Reservation(t) for t in cursor.fetchall()]
+
+    return reservations
     
 def reservations_for_car(carNum):
     
@@ -41,6 +70,7 @@ def reservations_for_car(carNum):
     cursor = connection.cursor()
     cursor.execute('''
         select * from reservation where carNum = %s
+            order by PickupDate desc
         '''
     , [carNum])
 
@@ -72,8 +102,6 @@ def insert_reservation(post_dict):
         d['memNum'],
         car.locNum,
     ])
-
-    import pdb; pdb.set_trace()
 
     description = "{0} {1} (ID {2}) for {3} hours".format(car.make, car.model, car.id, d['duration'])
 
@@ -144,6 +172,38 @@ def all_cars():
 
     return cars
 
+
+def cars_not_in_use():
+
+    cursor = connection.cursor()
+    cursor.execute('''
+
+
+
+        select CarNum, VIN, Make, Model, Year, LastOdometer, LastGas, LocNum
+            from car
+                except
+                    (select car.CarNum, VIN, Make, Model, Year, LastOdometer, LastGas, car.LocNum
+                        from car inner join reservation
+                            on car.carNum = reservation.carNum
+                        where pickupdate = %s
+                            and PickupTime < %s
+                            and (PickupTime + (duration * '1 hour'::INTERVAL)) > %s
+                    )
+            order by carNum
+        ;
+        ''',
+        [
+            datetime.date.today(),
+            datetime.datetime.time(datetime.datetime.now()),
+            datetime.datetime.time(datetime.datetime.now()),
+        ]
+    )
+
+    cars = [Car(t) for t in cursor.fetchall()]
+
+    return cars
+
 def car_by_id(id):
     cursor = connection.cursor()
     cursor.execute('''
@@ -194,6 +254,7 @@ def all_members():
     cursor = connection.cursor()
     cursor.execute('''
         select * from Member
+            order by Name
     ''')
 
     items = [Member(t) for t in cursor.fetchall()]
@@ -296,7 +357,8 @@ class Transaction(object):
 def transcations_for_member(memNum):
     cursor = connection.cursor()
     cursor.execute('''
-        select * from transaction where memNum = %s order by transDate desc
+        select * from transaction where memNum = %s
+            order by transDate desc
         '''
     , [memNum])
 

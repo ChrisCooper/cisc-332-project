@@ -5,6 +5,7 @@
 
 -- Drop existing tables
 
+drop table Transaction CASCADE;
 drop table Member CASCADE;
 drop table Charge CASCADE;
 drop table Payment CASCADE;
@@ -13,7 +14,7 @@ drop table Location CASCADE;
 drop table Reservation CASCADE;
 drop table Car CASCADE;
 drop table Maintenance CASCADE;
-drop table Transaction CASCADE;
+
 
 
 -- Create new tables

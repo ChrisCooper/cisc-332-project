@@ -29,21 +29,15 @@ insert into Reservation values
 (DEFAULT, '2013-03-07', '10:30', 5, 1, 1, 1),
 (DEFAULT, '2013-03-25', '15:00', 4, 4, 1, 2),
 (DEFAULT, '2013-02-23', '14:00', 5, 5, 1, 2),
-(DEFAULT, '2013-02-27', '09:00', 5, 5, 2, 2),
+(DEFAULT, '2013-03-27', '09:00', 5, 5, 2, 2),
 (DEFAULT, '2013-03-25', '09:30', 2, 2, 1, 1),
 (DEFAULT, '2013-03-07', '09:00', 4, 4, 2, 2),
 (DEFAULT, '2013-02-25', '11:00', 6, 2, 2, 1),
 (DEFAULT, '2013-03-02', '10:00', 3, 1, 1, 2),
 (DEFAULT, '2013-03-13', '12:30', 4, 1, 2, 2),
 (DEFAULT, '2013-03-10', '11:30', 6, 4, 2, 1),
+(DEFAULT, '2013-03-26', '21:00', 2, 2, 2, 2),
 (DEFAULT, '2013-03-09', '10:00', 1, 3, 1, 1)
-;
-
-
-insert into Payment values
-(DEFAULT, 12.50, '2013-03-03', 1),
-(DEFAULT, 15.25, '2013-02-25', 2),
-(DEFAULT, 84.50, '2013-02-26', 3)
 ;
 
 insert into Maintenance values
@@ -53,29 +47,8 @@ insert into Maintenance values
 (DEFAULT, '2013-01-26', 10982, 3)
 ;
 
-insert into Charge values
-(DEFAULT, '2013-03-03', 1, 1, 1),
-(DEFAULT, '2013-03-07', 1, 1, 1),
-(DEFAULT, '2013-02-27', 1, 2, 1),
-(DEFAULT, '2013-02-23', 1, 3, 1),
-(DEFAULT, '2013-02-27', 1, 4, 2),
-(DEFAULT, '2013-03-13', 1, 5, 1),
-(DEFAULT, '2013-03-07', 1, 6, 2),
-(DEFAULT, '2013-02-25', 1, 7, 2),
-(DEFAULT, '2013-03-02', 1, 8, 1),
-(DEFAULT, '2013-03-13', 1, 9, 2),
-(DEFAULT, '2013-03-10', 1, 10, 2),
-(DEFAULT, '2013-03-09', 1, 11, 1),
-(DEFAULT, '2013-03-13', 1, null, 1),
-(DEFAULT, '2013-03-10', 1, null, 1),
-(DEFAULT, '2013-03-09', 1, null, 2)
-;
-
 
 insert into Transaction values
-(DEFAULT,'2013-03-03', 'Annual fee', 50.0, 1),
-(DEFAULT,'2013-03-03', 'Annual fee', 50.0, 2),
-(DEFAULT,'2013-03-03', 'Annual fee', 50.0, 3),
 (DEFAULT,'2013-03-25', 'Honda Civic (ID 4) for 4 hours', 30.0, 1)
 ;
 

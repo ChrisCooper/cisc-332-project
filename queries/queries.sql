@@ -42,8 +42,9 @@ select *
     from car natural join reservation
     except
         (select * from car natural join reservation
-            where pickupdate = Today()
-                and PickupTime < startCutoff
+            where pickupdate = current_date
+                and PickupTime < current_time
+                and (PickupTime + (duration * '1 hour'::INTERVAL)) > current_time
         );
 
 -- startCutoff = now - duration

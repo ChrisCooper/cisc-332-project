@@ -66,12 +66,24 @@ def cars(request):
 
     if 'locNum' in request.GET and request.GET['locNum']:
         cars = cars_for_location(request.GET['locNum'])
+    elif 'freeCars' in request.GET and request.GET['freeCars']:
+        cars = cars_not_in_use()
     else:
         cars = all_cars()
 
     for car in cars:
         car.location = location_by_id(car.locNum)
         car.reservations = reservations_for_car(car.id)
+
+        history = past_reservations(car.id)
+
+        for res in history:
+            res.location = location_by_id(res.locNum)
+            res.member = member_by_id(res.memNum)
+
+        car.usageHistory = history
+
+        print(history)
 
     locations = all_locations()
 
@@ -103,8 +115,6 @@ def account(request, memNum):
     can_charge = can_charge_annual_fee(memNum)
 
     balance = balance_for_member(memNum)
-
-    #import pdb; pdb.set_trace()
 
     return render(request, 'account.html', {'member': member,
                                             'transactions': transactions,

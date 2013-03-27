@@ -4,9 +4,9 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1>Welcome!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a href="http://twitter.github.com/bootstrap/examples/hero.html#" class="btn btn-primary btn-large">Learn more »</a></p>
+        <h1>Welcome to K-Town Car Share!</h1>
+        <p>Car sharing services are well-established in Europe and are becoming popular in Canadian urban centers like Toronto and Montreal. K-Town Car Share provides people with the convenience of a vehicle when they need it without having to purchase one. It also promotes a healthier environment.</p>
+        <p><a href="http://en.wikipedia.org/wiki/Carsharing" class="btn btn-primary btn-large">Learn more »</a></p>
       </div>
 
       <!-- Example row of columns -->
@@ -14,14 +14,21 @@
         <div class="span12">
             <ul>
                 <li>
-                    <a href="{% url 'reservations' %}">Show reservations for a given day</a>
+                    <a href="{% url 'members' %}">View all members, and add new ones</a>
                 </li>
                 <li>
-                    <a href="{% url 'cars' %}">View all cars in the fleet, and add new cars</a>
+                    <a href="{% url 'reservations' %}">Show reservations for a given day, and create new reservations (this automatically charges the member's account for the reservation)</a>
+                </li>
+                <li>
+                    <a href="{% url 'members' %}">Show all members and view their account transactions (you can also make balance payments and charge them their annual fee)</a>
+                </li>
+                <li>
+                    <a href="{% url 'cars' %}">View all cars at a location, all cars not in use, reservations and usage history for each car, and add new cars to the fleet</a>
                 </li>
                 <li>
                     <a href="{% url 'members' %}">View all members, and add new ones</a>
                 </li>
+
             </ul>
         </div>
         
