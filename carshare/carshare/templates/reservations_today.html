@@ -34,13 +34,13 @@
                 {% for res in reservations %}
                 <tr>
                     <td>
-                        <a href="#" data-placement="top" data-toggle="tooltip" title="ID: {{ res.member.id }}">
+                        <a href="{% url 'members' %}" data-placement="top" data-toggle="tooltip" title="ID: {{ res.member.id }}">
                             {{ res.member.name }}
                         </a>
                     </td>
 
                     <td>
-                        <a href="#" data-placement="top" data-toggle="tooltip" title="VIN: {{ res.car.VIN }}">
+                        <a href="{% url 'cars' %}" data-placement="top" data-toggle="tooltip" title="VIN: {{ res.car.VIN }}">
                             {{ res.car.make }} {{ res.car.model }}
                         </a>
                     </td>

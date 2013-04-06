@@ -9,7 +9,7 @@
 
         <p>You can view the transaction history for this user and make payments.</p>
 
-        <h3>{{ member.name }}'s balance is ${{ balance }}</h3>
+        <h3>{{ member.name }}'s balance is ${% if balance %}{{ balance }}{% else %}0.00{% endif %}</h3>
 
         <form method="post" action="" >
             {% if balance > 0 %}
